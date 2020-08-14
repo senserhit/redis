@@ -11,7 +11,7 @@ set(SRC_SERVER_TMP
         src/acl.c
         src/adlist.c
         src/ae.c
-        src/ae_kqueue.c
+        src/ae_epoll.c
         src/anet.c
         src/aof.c
         src/bio.c
@@ -111,6 +111,7 @@ set(SRC_CLI
 set(EXECUTABLE_OUTPUT_PATH src)
 link_directories(deps/linenoise/ deps/lua/src deps/hiredis)
 
+
 add_executable(redis-server ${SRC_SERVER})
 target_include_directories(redis-server
         PRIVATE ${REDIS_ROOT}/deps/linenoise
@@ -119,6 +120,7 @@ target_include_directories(redis-server
 target_link_libraries(redis-server
         PRIVATE pthread
         PRIVATE m
+        PRIVATE dl
         PRIVATE lua
         PRIVATE linenoise
         PRIVATE hiredis)
